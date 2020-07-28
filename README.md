@@ -25,13 +25,5 @@ BomBom: Portfolio
 ![WBS](https://github.com/HYKim8/springPro/blob/master/bombom_WBS.png "이미지설명") 
 ### 5. 개발아키텍처 : MVC
 ![WBS](https://github.com/HYKim8/springPro/blob/master/spring-mvc-architecture.png "이미지설명") 
-### 6. 개발목록
 
-### 7. 단위테스트
-
-### 8. 통합테스트
-
-### 9. 이행
-
-### 10. 개발URL
 
