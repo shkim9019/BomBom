@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sist.spring.covid">
+    
+    <insert id="doInsert" parameterType="CovidUserVO">
+    	INSERT INTO covid_user (	
+	    member_id,           
+	    password,            
+	    email,               
+	    phone		        
+	) VALUES (               
+	    #{memberId},                   
+	    #{passWord},                   
+	    #{email},                   
+	    #{phone}                    
+	)                        	
+    </insert>
+   	
+    <insert id="doRxInsert" parameterType="RxJoinVO">
+	    INSERT INTO pharmacy (	
+	    member_id,           
+	    p_code,              
+	    p_name,              
+	    p_addr,              
+	    p_lng,               
+	    p_lat                
+	) VALUES (               
+	    #{memberId},                   
+	    #{pCode},                  
+	    #{pName},                  
+	    #{pAddr},                   
+	    #{pLng},                   
+		#{pLat}                   
+	)                        
+    </insert>
+    
+    <delete id="doDelete" parameterType="CovidParmVO">
+	    DELETE FROM pharmacy					
+		WHERE member_id = #{memberId}                 
+		AND p_code = #{pCode}                      
+    </delete>
+    
+    <delete id="doDeleteUser" parameterType="CovidUserVO">
+	    DELETE FROM COVID_USER					
+		WHERE member_id = #{memberId}                 
+    </delete>
+    
+    <select id="doSelectOne" parameterType="RxJoinVO" resultType="RxJoinVO">
+		SELECT A.*
+		FROM(
+		SELECT t1.member_id as memberId,					
+		       t1.p_code as pCode,                    
+		       t1.p_name as pName,                    
+		       t1.p_addr as pAddr,                    
+		       t1.p_lng as pLng,                     
+		       t1.p_lat as pLat,                     
+		       t2.email                      
+		    FROM pharmacy t1, COVID_USER t2      
+		    WHERE t1.member_id = t2.member_id    
+		    AND t1.member_id = #{memberId}                
+		    AND t1.p_code = #{pCode}      
+		)A
+    </select>
+    
+    <select id="doSelectOneUser" parameterType="CovidUserVO" resultType="CovidUserVO">
+	    SELECT				
+		    member_id as memberId,       
+		    password,        
+		    email,           
+		    phone            
+		FROM  covid_user     
+		WHERE member_id = #{memberId}  
+    </select>
+	
+	<select id="doRetrieve" parameterType="RxJoinVO" resultType="RxJoinVO">
+		SELECT A.*
+		FROM(
+		SELECT t1.member_id as memberId,					  
+			       t1.p_code as pCode,                      
+			       t1.p_name as pName,                      
+			       t1.p_addr as pAddr,                   
+			       t1.p_lng as pLng,                       
+			       t1.p_lat as pLat,                      
+			       t2.email                        
+		FROM pharmacy t1, COVID_USER t2        
+		WHERE t1.member_id = t2.member_id      
+		AND t1.member_id = #{memberId}       
+		)A
+	</select>
+    
+</mapper>

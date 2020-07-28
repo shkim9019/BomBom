@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sist.spring.portfolio.member">
+
+    <sql id="baseCondition">
+        <choose>
+            <when test="'10' == searchDiv">
+                AND member_id like '%' || #{searchWord} || '%'
+            </when>
+            <when test="'20' == searchDiv">
+                AND name like '%' || #{searchWord} || '%'
+            </when>
+        </choose>
+    </sql>
+	
+	<!-- 로그인 -->
+	<select id="doLogin" parameterType="MemberVO" resultType="MemberVO">
+		SELECT               
+		    member_id as memberId,       
+		    password,        
+		    name,            
+		    email,           
+		    birth,           
+		    phone,           
+		    authority,       
+		    interestoption,  
+		    open,            
+		    1 rnum,          
+		    1 total_cnt      
+		FROM                 
+		    member           
+		WHERE                
+		    member_id= #{memberId,jdbcType=VARCHAR}    
+			AND password= #{password,jdbcType=VARCHAR}
+	</select>
+	
+    <!-- 목록조회 -->
+    <select id="doRetrieve" parameterType="SearchVO" resultType="MemberVO">
+	SELECT T1.*,T2.*                    
+		FROM(                               
+		    SELECT  B.member_id as memberId,           
+		            B.password,             
+		            B.name,                 
+		            B.email,                
+		            B.birth,                
+		            B.phone,                
+		            B.authority,            
+		            B.interestOption,       
+		            B.open,          		
+		            rnum                    
+		    FROM(                           
+		        SELECT ROWNUM rnum,         
+		               A.*                  
+		        FROM (                      
+		            SELECT *                
+		            FROM member             
+		        )A                      
+		        WHERE ROWNUM <![CDATA[ <= ]]> (#{pageSize} *(#{pageNum} - 1)+#{pageSize}) 
+		    )B --1                          
+		    WHERE B.RNUM <![CDATA[ >= ]]> (#{pageSize}*(#{pageNum}-1)+1)     
+		    )T1 CROSS JOIN                  
+		    (                               
+		    SELECT count(*) total_cnt       
+		    FROM member                     
+		    )T2                             
+    </select>
+
+
+    <!-- 단건조회 -->
+    <select id="doSelectOne" parameterType="MemberVO" resultType="MemberVO">
+		SELECT              
+		    member_id as memberId, 
+		    password,       
+		    name,          	
+		    email,          
+		    birth,          
+		    phone,         	
+		    authority,      
+		    interestOption, 
+		    open,          	
+		    1 rnum,       	
+		    1 total_cnt  	
+		FROM                
+		    member          
+		WHERE member_id = #{memberId,jdbcType=VARCHAR} 
+    </select>
+
+	<!-- 등록 : namespace+id = com.sist.ehr.user.doInsert -->
+	<insert id="doInsert" parameterType="MemberVO">
+		INSERT INTO MEMBER ( 	
+		    member_id,        
+		    password,         
+		    name,          		
+		    email,          	
+		    birth,            
+		    phone,         		
+		    authority,        
+		    interestOption,   
+		    open          		
+		) VALUES (            
+		    #{memberId,jdbcType=VARCHAR},                
+		    #{password,jdbcType=VARCHAR},                
+		    #{name,jdbcType=VARCHAR},                
+		    #{email,jdbcType=VARCHAR},                
+		    #{birth,jdbcType=VARCHAR},                
+		    #{phone,jdbcType=VARCHAR},                
+		    #{authority,jdbcType=VARCHAR},                
+		    #{interestOption,jdbcType=VARCHAR},                
+		    #{open,jdbcType=VARCHAR}              
+		)                     
+	</insert>
+	
+	<!-- 업데이트 ( 사용 x) -->
+	<update id="doUpdate" parameterType="MemberVO">
+		UPDATE member         	
+		SET password = #{password,jdbcType=VARCHAR},          
+		    name = #{name,jdbcType=VARCHAR},          		
+		    email = #{email,jdbcType=VARCHAR},          	
+		    birth = #{birth,jdbcType=VARCHAR},             
+		    phone = #{phone,jdbcType=VARCHAR},         		
+		    authority = #{authority,jdbcType=VARCHAR},         
+		    interestOption = #{interestOption,jdbcType=VARCHAR},    
+		    open = #{open,jdbcType=VARCHAR}          		
+		WHERE                    	
+		    member_id = #{memberId,jdbcType=VARCHAR}          
+	</update>
+</mapper>
+
+
+
+
+
+

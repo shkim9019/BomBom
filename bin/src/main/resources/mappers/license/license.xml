@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sist.spring.portfolio.license">
+    
+    
+    <!-- 목록조회 -->
+    <select id="doRetrieve" parameterType="LicenseVO" resultType="LicenseVO">
+      SELECT                                   
+          l_name as lName,                              
+          l_group as lGroup,                             
+          l_grade as lGrade,                             
+          l_num as lNum,                               
+          l_organ as lOrgan,                             
+          TO_CHAR(l_date,'YYYY/MM/DD') lDate, 
+          member_id as memberId                            
+      FROM                                     
+          license                              
+      WHERE member_id= #{memberId}                       
+    </select>
+
+   
+    
+    <!-- 수정 -->
+    <update id="doUpdate" parameterType="LicenseVO">
+         UPDATE License       
+         SET l_group = #{lGroup},      
+             l_grade = #{lGrade},      
+             l_num = #{lNum},        
+             l_date = TO_DATE(#{lDate},'YYYY/MM/DD'),       
+             l_organ = #{lOrgan}      
+         WHERE  member_id = #{memberId} 
+         AND l_name=#{lName}       
+    </update>
+    
+   
+    <sql id="licenseCol">
+      l_name  as lName,
+      l_group as lGroup,
+      l_grade as lGrade,
+      l_num   as lNum,
+      l_organ as lOrgan,
+      TO_CHAR(l_date,'YYYY/MM/DD')  as lDate,
+      member_id as memberId 
+    </sql>
+    
+    
+    <!-- 단건조회 -->
+    <select id="doSelectOne" parameterType="LicenseVO" resultType="LicenseVO">
+      SELECT
+          <include refid="licenseCol"/>
+      FROM license
+      WHERE member_id = #{memberId}
+    </select>
+    
+     <!-- 특정멤버,자격증 단건조회 -->
+    <select id="doSelectOneLic" parameterType="LicenseVO" resultType="LicenseVO">
+      SELECT
+          <include refid="licenseCol"/>
+      FROM license
+      WHERE member_id = #{memberId}
+      AND l_name=#{lName} 
+    </select>
+
+   <!-- 등록  -->
+   <insert id="doInsert" parameterType="LicenseVO">
+      INSERT INTO License(
+                  l_name,   
+                  l_group,  
+                  l_grade,  
+                  l_num,    
+                  l_organ,  
+                  l_date,   
+                  member_id 
+       )VALUES(            
+                  #{lName},        
+                  #{lGroup},        
+                  #{lGrade},        
+                  #{lNum},        
+                  #{lOrgan},     
+                  TO_DATE(#{lDate},'YYYY-MM-DD'),      
+                  #{memberId}         
+      )
+   
+   </insert>
+   
+   <!-- 회원 자격증 전부 삭제 -->
+   <delete id="doDeleteAll" parameterType="LicenseVO"  >
+        DELETE FROM license WHERE member_id = #{memberId}
+      
+   </delete>
+
+   <!-- 특정회원,자격증 삭제 -->
+    <delete id="doDeleteLicense" parameterType="LicenseVO" >
+         DELETE FROM License
+         WHERE member_id=#{memberId} 
+         AND l_name=#{lName}      
+      
+    </delete>   
+
+    
+</mapper>
