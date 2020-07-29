@@ -27,3 +27,5 @@ BomBom: Portfolio
 ![WBS](https://github.com/HYKim8/springPro/blob/master/spring-mvc-architecture.png "이미지설명") 
 
 
+#### 6. 포트폴리오 사이트 시연영상
+<https://youtu.be/mCfg6Dy8ja0>
