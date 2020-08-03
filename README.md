@@ -20,7 +20,7 @@ BomBom: Portfolio
 ### 3. 요구사항 정의서
 ![요구사항](https://github.com/shkim9019/BomBom/blob/master/%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD%EC%A0%95%EC%9D%98%EC%84%9C.PNG "요구사항 정의서") 
 ### 4. 기본설계서
-![기본설계서](https://raw.githubusercontent.com/HYKim8/springPro/master/bombom_%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD%EC%A0%95%EC%9D%98%EC%84%9C.png "기본설계서") 
+![기본설계서](https://github.com/shkim9019/BomBom/blob/master/%EA%B8%B0%EB%B3%B8%EC%84%A4%EA%B3%84%EC%84%9C.PNG "기본설계서") 
 ### 5. WBS
 ![WBS](https://github.com/HYKim8/springPro/blob/master/bombom_WBS.png "이미지설명") 
 ### 6. 개발아키텍처 : MVC
