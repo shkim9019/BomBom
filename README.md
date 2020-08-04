@@ -22,9 +22,9 @@ BomBom: Portfolio
 ### 4. 기본설계서
 ![기본설계서](https://github.com/shkim9019/BomBom/blob/master/%EA%B8%B0%EB%B3%B8%EC%84%A4%EA%B3%84%EC%84%9C.PNG "기본설계서") 
 ### 5. WBS
-![WBS](https://github.com/HYKim8/springPro/blob/master/bombom_WBS.png "이미지설명") 
+![WBS](https://github.com/shkim9019/BomBom/blob/master/WBS.png "이미지설명") 
 ### 6. 개발아키텍처 : MVC
-![WBS](https://github.com/HYKim8/springPro/blob/master/spring-mvc-architecture.png "이미지설명") 
+![WBS](https://github.com/shkim9019/BomBom/blob/master/MVC.png "이미지설명") 
 
 
 #### 7. 포트폴리오 사이트 시연영상
